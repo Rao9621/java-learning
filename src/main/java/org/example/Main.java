@@ -1,35 +1,61 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        // ===== 变量和类型 =====
-        String name = "小明";
-        int age = 20;
-        double height = 175.5;
-        boolean isStudent = true;
+        Scanner scanner = new Scanner(System.in);
 
-        System.out.println("===== 个人信息 =====");
-        System.out.println("姓名：" + name);
-        System.out.println("年龄：" + age);
-        System.out.println("身高：" + height);
-        System.out.println("是学生吗：" + isStudent);
+        while (true) {
+            // 1. 输入第一个数字
+            System.out.print("请输入第一个数字：");
+            double num1 = scanner.nextDouble();
 
-        // ===== 条件判断 =====
-        if (age >= 18) {
-            System.out.println("\n你已成年，可以学 Java 了！");
-        } else {
-            System.out.println("\n你还未成年，再等等吧");
+            // 2. 输入运算符
+            System.out.print("请输入运算符 (+, -, *, /)：");
+            String op = scanner.next();
+
+            // 3. 输入第二个数字
+            System.out.print("请输入第二个数字：");
+            double num2 = scanner.nextDouble();
+
+            // 4. 计算结果
+            double result = 0;
+            boolean valid = true;
+
+            if (op.equals("+")) {
+                result = num1 + num2;
+            } else if (op.equals("-")) {
+                result = num1 - num2;
+            } else if (op.equals("*")) {
+                result = num1 * num2;
+            } else if (op.equals("/")) {
+                if (num2 == 0) {
+                    System.out.println("错误：除数不能为 0！");
+                    valid = false;
+                } else {
+                    result = num1 / num2;
+                }
+            } else {
+                System.out.println("错误：不支持的运算符！");
+                valid = false;
+            }
+
+            if (valid) {
+                System.out.println("结果：" + num1 + " " + op + " " + num2 + " = " + result);
+            }
+
+            // 5. 询问是否继续
+            System.out.print("\n是否继续计算？(y/n)：");
+            String choice = scanner.next();
+            if (choice.equals("n")) {
+                System.out.println("感谢使用，再见！");
+                break;
+            } else if (!choice.equals("y")) {
+                System.out.println("输入无效，已退出。");
+                break;
+            }
+            System.out.println("----------------------");
         }
 
-        // ===== 循环 =====
-        System.out.println("\n===== 打印 1 到 5 =====");
-        for (int i = 1; i <= 5; i++) {
-            System.out.println("数字：" + i);
-        }
-
-        // ===== 数组 =====
-        System.out.println("\n===== 遍历数组 =====");
-        String[] courses = {"Java基础", "数据库", "Spring Boot", "项目实战"};
-        for (String course : courses) {
-            System.out.println("要学：" + course);
-        }
+        scanner.close();
     }
 }
